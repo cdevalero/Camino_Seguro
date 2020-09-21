@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from alquiler.models import *
+
+# admin se encarga de agragarlo
+admin.site.register([Camiones, Companias, Lugares_Dir, Oficinas, Remolques, Particulares, Contrartos])

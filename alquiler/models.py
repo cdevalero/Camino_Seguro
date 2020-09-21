@@ -5,9 +5,12 @@ class Lugares_Dir(models.Model):
         ('c','ciudad'),
         ('e','estado'),
     )
-    nombre = models.CharField(null=False, verbose_name='Nombre')
+    nombre = models.CharField(null=False, verbose_name='Nombre', max_length=255)
     tipo = models.CharField(max_length=1, choices=LUGAR, null=False, verbose_name='Tipo')
-    id_lugar = models.ForeignKey(Lugares_Dir, on_delete=models.CASCADE)
+    id_lugar = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank = True)
+
+    def __str__(self):
+        return self.nombre + ' (' + self.tipo + ')'
 
     class Meta:
         db_table = 'lugar_dir'
@@ -16,9 +19,12 @@ class Lugares_Dir(models.Model):
         ordering = ['id']
 
 class Companias(models.Model):
-    nombre = models.CharField(null=False, verbose_name='Nombre')
-    calleav = models.CharField(null=False, verbose_name='Calle/Avenida')
-    id_ciudad = models.ForeignKey(Lugares_Dir, on_delete=models.CASCADE)
+    nombre = models.CharField(null=False, verbose_name='Nombre', max_length=255, unique=True)
+    calleav = models.CharField(null=False, verbose_name='Calle/Avenida', max_length=255)
+    id_ciudad = models.ForeignKey(Lugares_Dir, on_delete=models.CASCADE, null=False)
+
+    def __str__(self):
+        return self.nombre
     
     class Meta:
         db_table = 'companias'
@@ -31,14 +37,17 @@ class Particulares(models.Model):
         (4,'Tipo 4'),
         (5,'Tipo 5'),
     )
-    nombre = models.CharField(null=False, verbose_name='Nombre')
-    apellido1 = models.CharField(null=False, verbose_name='Apellido 1')
-    apellido2 = models.CharField(null=False, verbose_name='Apellido 2')
-    calleav = models.CharField(null=False, verbose_name='Calle/Avenida')
+    nombre = models.CharField(null=False, verbose_name='Nombre', max_length=255)
+    apellido1 = models.CharField(null=False, verbose_name='Apellido 1', max_length=255)
+    apellido2 = models.CharField(null=False, verbose_name='Apellido 2', max_length=255)
+    calleav = models.CharField(null=False, verbose_name='Calle/Avenida', max_length=255)
     tip_lic = models.IntegerField(max_length=1, choices=LICENCIA, null=False, verbose_name='Tipo de licencia')
     fecha_exp = models.DateField(verbose_name='Fecha exp', null=False)
-    riesgo = models.BooleanField(verbose_name='Riesgo')
+    riesgo = models.BooleanField(verbose_name='Riesgo', null=True, blank = True)
     id_ciudad = models.ForeignKey(Lugares_Dir, on_delete=models.CASCADE, null=False)
+
+    def __str__(self):
+        return self.nombre + ' ' + self.apellido1 + ' ' + self.apellido2
     
     class Meta:
         db_table = 'particulares'
@@ -47,7 +56,12 @@ class Particulares(models.Model):
         ordering = ['id']
 
 class Oficinas(models.Model):
-    
+    nombre = models.CharField(null=False, verbose_name='Nombre', max_length=255, unique=True)
+    calleav = models.CharField(null=False, verbose_name='Calle/Avenida', max_length=255)
+    id_ciudad = models.ForeignKey(Lugares_Dir, on_delete=models.CASCADE, null=False)
+
+    def __str__(self):
+        return self.nombre
     
     class Meta:
         db_table = 'oficinas'
@@ -56,7 +70,17 @@ class Oficinas(models.Model):
         ordering = ['id']
 
 class Camiones(models.Model):
-    
+    num_registro = models.IntegerField(verbose_name='Numero de registro', unique=True, null=False)
+    fecha_exp = models.DateField(verbose_name='Expiracion', null=False)
+    fecha_man = models.DateField(verbose_name='Mantenimiento', null=False)
+    tammts = models.IntegerField(verbose_name='Tamaño (mts)', null=False)
+    km = models.IntegerField(verbose_name='Km', null=False)
+    capacidad = models.IntegerField(verbose_name='Capacidad', null=False)
+    radio = models.BooleanField(verbose_name='Radio', null=True, blank = True)
+    id_oficina = models.ForeignKey(Oficinas, on_delete=models.Case, null=False)
+
+    def __str__(self):
+        return self.num_registro
     
     class Meta:
         db_table = 'camiones'
@@ -65,7 +89,16 @@ class Camiones(models.Model):
         ordering = ['id']
 
 class Remolques(models.Model):
-    
+    num_registro = models.IntegerField(verbose_name='Numero de registro', unique=True, null=False)
+    fecha_exp = models.DateField(verbose_name='Expiracion', null=False)
+    fecha_man = models.DateField(verbose_name='Mantenimiento', null=False)
+    tammts = models.IntegerField(verbose_name='Tamaño (mts)', null=False)
+    material = models.CharField(verbose_name='Material', null=False, max_length=255)
+    abierto = models.BooleanField(verbose_name='Abierto', null=True, blank = True)
+    id_oficina = models.ForeignKey(Oficinas, on_delete=models.Case, null=False)
+
+    def __str__(self):
+        return self.num_registro
     
     class Meta:
         db_table = 'remolques'
@@ -74,7 +107,19 @@ class Remolques(models.Model):
         ordering = ['id']
 
 class Contrartos(models.Model):
-    
+    fecha_alquiler = models.DateField(verbose_name='Alquiler', null=False)
+    dura = models.IntegerField(verbose_name='Duracion', null=False)
+    deposito = models.IntegerField(verbose_name='Deposito', null=False)
+    tar_dia = models.IntegerField(verbose_name='Tarifa/Dia', null=False)
+    id_ofic_origen = models.ForeignKey(Oficinas, on_delete=models.Case, null=False, related_name='id_ofic_origen')
+    id_ofic_destino = models.ForeignKey(Oficinas, on_delete=models.Case, null=False, related_name='id_ofic_destino')
+    id_camion = models.ForeignKey(Camiones, on_delete=models.Case, null=True, blank = True)
+    id_remolque = models.ForeignKey(Remolques, on_delete=models.Case, null=True,blank = True)
+    id_compa = models.ForeignKey(Companias, on_delete=models.Case, null=True, blank = True)
+    id_per = models.ForeignKey(Particulares, on_delete=models.Case, null=True, blank = True)
+
+    def __str__(self):
+        return self.id
     
     class Meta:
         db_table = 'contratos'
