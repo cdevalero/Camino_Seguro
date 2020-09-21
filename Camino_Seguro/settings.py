@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     # Mis apps
     'alquiler',
+    'administracion',
 ]
 
 MIDDLEWARE = [
