@@ -77,10 +77,10 @@ class Camiones(models.Model):
     km = models.IntegerField(verbose_name='Km', null=False)
     capacidad = models.IntegerField(verbose_name='Capacidad', null=False)
     radio = models.BooleanField(verbose_name='Radio', null=True, blank = True)
-    id_oficina = models.ForeignKey(Oficinas, on_delete=models.Case, null=False)
+    id_oficina = models.ForeignKey(Oficinas, on_delete=models.CASCADE, null=False)
 
     def __str__(self):
-        return self.num_registro
+        return str(self.num_registro)
     
     class Meta:
         db_table = 'camiones'
@@ -95,10 +95,10 @@ class Remolques(models.Model):
     tammts = models.IntegerField(verbose_name='Tamaño (mts)', null=False)
     material = models.CharField(verbose_name='Material', null=False, max_length=255)
     abierto = models.BooleanField(verbose_name='Abierto', null=True, blank = True)
-    id_oficina = models.ForeignKey(Oficinas, on_delete=models.Case, null=False)
+    id_oficina = models.ForeignKey(Oficinas, on_delete=models.CASCADE, null=False)
 
     def __str__(self):
-        return self.num_registro
+        return str(self.num_registro)
     
     class Meta:
         db_table = 'remolques'
@@ -111,15 +111,15 @@ class Contrartos(models.Model):
     dura = models.IntegerField(verbose_name='Duracion', null=False)
     deposito = models.IntegerField(verbose_name='Deposito', null=False)
     tar_dia = models.IntegerField(verbose_name='Tarifa/Dia', null=False)
-    id_ofic_origen = models.ForeignKey(Oficinas, on_delete=models.Case, null=False, related_name='id_ofic_origen')
-    id_ofic_destino = models.ForeignKey(Oficinas, on_delete=models.Case, null=False, related_name='id_ofic_destino')
-    id_camion = models.ForeignKey(Camiones, on_delete=models.Case, null=True, blank = True)
-    id_remolque = models.ForeignKey(Remolques, on_delete=models.Case, null=True,blank = True)
-    id_compa = models.ForeignKey(Companias, on_delete=models.Case, null=True, blank = True)
-    id_per = models.ForeignKey(Particulares, on_delete=models.Case, null=True, blank = True)
+    id_ofic_origen = models.ForeignKey(Oficinas, on_delete=models.CASCADE, null=False, related_name='id_ofic_origen')
+    id_ofic_destino = models.ForeignKey(Oficinas, on_delete=models.CASCADE, null=False, related_name='id_ofic_destino')
+    id_camion = models.ForeignKey(Camiones, on_delete=models.CASCADE, null=True, blank = True)
+    id_remolque = models.ForeignKey(Remolques, on_delete=models.CASCADE, null=True,blank = True)
+    id_compa = models.ForeignKey(Companias, on_delete=models.CASCADE, null=True, blank = True)
+    id_per = models.ForeignKey(Particulares, on_delete=models.CASCADE, null=True, blank = True)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
     
     class Meta:
         db_table = 'contratos'
