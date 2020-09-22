@@ -14,4 +14,9 @@ urlpatterns = [
 
     path('lugar_dir/add/', add_lugar_dir, name="add_lugar_dir"),
     path('oficinas/add/', add_oficinas, name="add_oficinas"),
+    path('companias/add/', add_companias, name="add_companias"),
+    path('particulares/add/', add_particulares, name="add_particulares"),
+    path('camiones/add/', add_camiones, name="add_camiones"),
+    path('remolques/add/', add_remolques, name="add_remolques"),
+    path('contratos/add/', add_contratos, name="add_contratos"),
 ]

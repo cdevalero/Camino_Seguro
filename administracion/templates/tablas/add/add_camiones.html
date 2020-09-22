@@ -1,17 +1,17 @@
 {% extends 'base_admin.html' %}
 
 {% block title %}
-    add Oficinas
+    add Camiones
 {% endblock title %}
 
 {% load crispy_forms_tags %}
 
 {% block content_admin %}
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Oficinas</h1>
+    <h1 class="h3 mb-2 text-gray-800">Camiones</h1>
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <a href="{% url 'oficinas_admin' %}" class="btn btn-primary" >Volver</a>
+        <a href="{% url 'camiones_admin' %}" class="btn btn-primary" >Volver</a>
       </div>
       <div class="card-body">
         {% if messages %}

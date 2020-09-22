@@ -14,6 +14,17 @@
         <a href="{% url 'lugar_dir_admin' %}" class="btn btn-primary" >Volver</a>
       </div>
       <div class="card-body">
+        {% if messages %}
+          <div class="row mt-3 mb-3">
+              <div class="col-12">                    
+                  {% for message in messages  %}
+                      <div class="alert alert-{{ message.tags }}">
+                          {{ message }}
+                      </div>
+                  {% endfor %}                       
+              </div>
+          </div>           
+        {% endif %}
         <form action="" method="post" class="mt-2" autocomplete="off">
             {% csrf_token %}
             {{form|crispy}}
