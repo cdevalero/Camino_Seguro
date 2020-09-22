@@ -1,0 +1,25 @@
+{% extends 'base_admin.html' %}
+
+{% block title %}
+    add Lugar/Direccion
+{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block content_admin %}
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Lugares / Direcciones</h1>
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <a href="{% url 'lugar_dir_admin' %}" class="btn btn-primary" >Volver</a>
+      </div>
+      <div class="card-body">
+        <form action="" method="post" class="mt-2" autocomplete="off">
+            {% csrf_token %}
+            {{form|crispy}}
+            <button type="submit" class="btn btn-success">Crear!</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock content_admin %}

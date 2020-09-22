@@ -11,4 +11,7 @@ urlpatterns = [
     path('camiones/', camiones_admin, name="camiones_admin"),
     path('remolques/', remolques_admin, name="remolques_admin"),
     path('contratos/', contratos_admin, name="contratos_admin"),
+
+    path('lugar_dir/add/', add_lugar_dir, name="add_lugar_dir"),
+    path('oficinas/add/', add_oficinas, name="add_oficinas"),
 ]
