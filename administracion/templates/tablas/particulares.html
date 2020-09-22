@@ -1,0 +1,109 @@
+{% extends 'base_admin.html' %}
+
+
+{% block title %}
+    Particulares
+{% endblock title %}
+
+{% block content_admin %}
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Particulares</h1>
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <a href="#" class="btn btn-primary" >Nuevo +</a>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            id
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Nombre
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Apellidos
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Calle/Av
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Tipo de licencia
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Fecha de Expedicion
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Riesgo
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Ciudad
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Opciones
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if particulares %}                   
+                    {% for par in particulares  %}
+                        <tr>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    {{par.id}}
+                                </div>
+                            </td>
+                            <td>{{par.nombre}}</td>   
+                            <td>{{par.apellido1}} {{par.apellido2}}</td>                        
+                            <td>{{par.calleav}}</td>
+                            <td>{{par.tip_lic}}</td>
+                            <td>{{par.fecha_exp}}</td>
+                            
+                            {% if par.riesgo %}
+                                <td>Si</td>
+                            {% else %}
+                                <td>No</td>
+                            {% endif %}
+                            <td>{{par.id_ciudad}}</td>
+                                
+                                
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <a href="#">
+                                        <i class="far fa-trash-alt"></i>
+                                    </a>
+                                    <a href="#" class="offset-1">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>      
+                    {% endfor %}   
+                {% endif %}                  
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content_admin %}

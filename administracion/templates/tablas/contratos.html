@@ -1,0 +1,141 @@
+{% extends 'base_admin.html' %}
+
+
+{% block title %}
+    Contratos
+{% endblock title %}
+
+{% block content_admin %}
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Contratos</h1>
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <a href="#" class="btn btn-primary" >Nuevo +</a>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            id
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Fecha de Alquiler
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Duracion
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Deposito
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Tarifa x Dia
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Oficina Origen
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Oficina Destino
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Camion
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Remolque
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Compañia
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Persona
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Opciones
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if contratos %}                   
+                    {% for contrato in contratos  %}
+                        <tr>
+
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    {{contrato.id}}
+                                </div>
+                            </td>
+
+                            <td>{{contrato.fecha_alquiler}}</td>   
+                            <td>{{contrato.dura}} dias</td>                        
+                            <td>$ {{contrato.deposito}}</td>   
+                            <td>$ {{contrato.tar_dia}}</td>  
+                            <td>{{contrato.id_ofic_origen}}</td>   
+                            <td>{{contrato.id_ofic_destino}}</td> 
+                            <td>
+                                {% if contrato.id_camion %}
+                                    {{contrato.id_camion}}
+                                {% endif %}
+                            </td>       
+                            <td>
+                                {% if contrato.id_remolque %}
+                                    {{contrato.id_remolque}}
+                                {% endif %}
+                            </td>      
+                            <td>
+                                {% if contrato.id_compa %}
+                                    {{contrato.id_compa}}
+                                {% endif %}
+                            </td>  
+                            <td>
+                                {% if contrato.id_per %}
+                                    {{contrato.id_per}}
+                                {% endif %}
+                            </td>            
+
+                                
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <a href="#">
+                                        <i class="far fa-trash-alt"></i>
+                                    </a>
+                                    <a href="#" class="offset-1">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                            </td>
+
+                        </tr>      
+                    {% endfor %}   
+                {% endif %}                  
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content_admin %}

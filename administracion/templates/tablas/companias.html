@@ -1,0 +1,79 @@
+{% extends 'base_admin.html' %}
+
+
+{% block title %}
+    Compañias
+{% endblock title %}
+
+{% block content_admin %}
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Compañias</h1>
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <a href="#" class="btn btn-primary" >Nuevo +</a>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            id
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Nombre
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Calle/Av
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Ubicacion
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Opciones
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if companias %}                   
+                    {% for comp in companias  %}
+                        <tr>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    {{comp.id}}
+                                </div>
+                            </td>
+                            <td>{{comp.nombre}}</td>   
+                            <td>{{comp.calleav}}</td>                        
+                            <td>{{comp.id_ciudad}}</td>
+                                
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <a href="#">
+                                        <i class="far fa-trash-alt"></i>
+                                    </a>
+                                    <a href="#" class="offset-1">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>      
+                    {% endfor %}   
+                {% endif %}                  
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content_admin %}

@@ -1,0 +1,118 @@
+{% extends 'base_admin.html' %}
+
+
+{% block title %}
+    Camiones
+{% endblock title %}
+
+{% block content_admin %}
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Camiones</h1>
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <a href="#" class="btn btn-primary" >Nuevo +</a>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            id
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Numero de Registro
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Fecha de Expedicion
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Fecha de Mantenimiento
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Tamaño (mts)
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Km
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Capacidad
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Radio
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Oficina
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-center">
+                            Opciones
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if camiones %}                   
+                    {% for camion in camiones  %}
+                        <tr>
+
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    {{camion.id}}
+                                </div>
+                            </td>
+
+                            <td>{{camion.num_registro}}</td>   
+                            <td>{{camion.fecha_exp}}</td>                        
+                            <td>{{camion.fecha_man}}</td>
+                            <td>{{camion.tammts}}</td>   
+                            <td>{{camion.km}}</td>                        
+                            <td>{{camion.capacidad}}</td>
+                            <td>
+                            {% if camion.radio %}
+                                Si
+                            {% else %}
+                                no
+                            {% endif %}
+                                </td>                        
+                            <td>{{camion.id_oficina}}</td>
+                                
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <a href="#">
+                                        <i class="far fa-trash-alt"></i>
+                                    </a>
+                                    <a href="#" class="offset-1">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                            </td>
+
+                        </tr>      
+                    {% endfor %}   
+                {% endif %}                  
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content_admin %}
