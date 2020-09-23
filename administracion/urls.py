@@ -19,4 +19,20 @@ urlpatterns = [
     path('camiones/add/', add_camiones, name="add_camiones"),
     path('remolques/add/', add_remolques, name="add_remolques"),
     path('contratos/add/', add_contratos, name="add_contratos"),
+
+    path('lugar_dir/delete/<int:id>', delete_lugar_dir, name="delete_lugar_dir"),
+    path('oficinas/delete/<int:id>', delete_oficinas, name="delete_oficinas"),
+    path('companias/delete/<int:id>', delete_companias, name="delete_companias"),
+    path('particulares/delete/<int:id>', delete_particulares, name="delete_particulares"),
+    path('camiones/delete/<int:id>', delete_camiones, name="delete_camiones"),
+    path('remolques/delete/<int:id>', delete_remolques, name="delete_remolques"),
+    path('contratos/delete/<int:id>', delete_contratos, name="delete_contratos"),
+
+    path('lugar_dir/edit/<int:id>', edit_lugar_dir, name="edit_lugar_dir"),
+    path('oficinas/edit/<int:id>', edit_oficinas, name="edit_oficinas"),
+    path('companias/edit/<int:id>', edit_companias, name="edit_companias"),
+    path('particulares/edit/<int:id>', edit_particulares, name="edit_particulares"),
+    path('camiones/edit/<int:id>', edit_camiones, name="edit_camiones"),
+    path('remolques/edit/<int:id>', edit_remolques, name="edit_remolques"),
+    path('contratos/edit/<int:id>', edit_contratos, name="edit_contratos"),
 ]
