@@ -35,4 +35,8 @@ urlpatterns = [
     path('camiones/edit/<int:id>', edit_camiones, name="edit_camiones"),
     path('remolques/edit/<int:id>', edit_remolques, name="edit_remolques"),
     path('contratos/edit/<int:id>', edit_contratos, name="edit_contratos"),
+
+    path('lugar_dir/ciudades/', lugar_dir_ciudades, name="lugar_dir_ciudades"),
+    path('lugar_dir/estados/', lugar_dir_estados, name="lugar_dir_estados"),
+    
 ]

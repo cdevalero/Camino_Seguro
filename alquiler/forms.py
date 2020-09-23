@@ -6,6 +6,9 @@ class FormLugarDir(forms.ModelForm):
     class Meta:
         model = Lugares_Dir;
         fields = ('nombre', 'tipo', 'id_lugar')
+    def __init__(self, *args, **kwargs):
+        super(FormLugarDir, self).__init__(*args, **kwargs)
+        self.fields['id_lugar'].queryset = Lugares_Dir.objects.filter(tipo='e')
 
 class FormOficinas(forms.ModelForm):
     class Meta:

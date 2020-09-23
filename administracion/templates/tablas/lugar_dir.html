@@ -11,6 +11,13 @@
     <div class="card shadow mb-4">
       <div class="card-header py-3">
         <a href="{% url 'add_lugar_dir' %}" class="btn btn-primary" >Nuevo +</a>
+        <button type="button" class="btn btn-secondary" data-toggle="collapse" data-target="#MiniMenu">Filtros</button>      </div>
+      <div class="collapse" id="MiniMenu">
+        <div class="card-body">
+            <a href="{% url 'lugar_dir_admin' %}" class="btn btn-secondary" >Todo</a>
+            <a href="{% url 'lugar_dir_ciudades' %}" class="btn btn-secondary" >Ciudades</a>
+            <a href="{% url 'lugar_dir_estados' %}" class="btn btn-secondary" >Estados</a>
+        </div>
       </div>
       <div class="card-body">
         {% if messages %}
@@ -45,7 +52,7 @@
                     </th>
                     <th>
                         <div class="d-flex justify-content-center">
-                            Pertenece a
+                            Estado
                         </div>
                     </th>
                     <th>

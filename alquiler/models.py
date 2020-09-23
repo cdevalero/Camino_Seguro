@@ -10,7 +10,7 @@ class Lugares_Dir(models.Model):
     id_lugar = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank = True)
 
     def __str__(self):
-        return self.nombre + ' (' + self.tipo + ')'
+        return self.nombre
 
     class Meta:
         db_table = 'lugar_dir'

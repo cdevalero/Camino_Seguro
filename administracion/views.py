@@ -41,6 +41,9 @@ def add_lugar_dir(request):
     if request.method == 'POST':
         form = FormLugarDir(request.POST)
         if form.is_valid():
+            if form.cleaned_data.get('tipo') == 'e' and form.cleaned_data.get('id_lugar'):
+                messages.error(request, 'Un estado no se puede unir a otro estado')
+                return render(request, 'tablas/add/add_lugar_dir.html',{'form':form})
             form.save()
             return redirect('lugar_dir_admin')
         else:
@@ -215,6 +218,9 @@ def edit_lugar_dir(request, id):
     if request.method == 'POST':
         form = FormLugarDir(request.POST, instance= obj)
         if form.is_valid():
+            if form.cleaned_data.get('tipo') == 'e' and form.cleaned_data.get('id_lugar'):
+                messages.error(request, 'Un estado no se puede unir a otro estado')
+                return render(request, 'tablas/add/add_lugar_dir.html',{'form':form})
             form.save()
             return redirect('lugar_dir_admin')
         else:
@@ -349,3 +355,12 @@ def edit_contratos(request, id):
             return redirect('add_contratos')
     form = FormContratos(instance= obj)
     return render(request, 'tablas/add/add_contratos.html',{'form':form})
+
+#extras
+def lugar_dir_ciudades(request):
+    obj = Lugares_Dir.objects.filter(tipo='c')
+    return render(request, 'tablas/lugar_dir.html', {'lugares': obj})
+
+def lugar_dir_estados(request):
+    obj = Lugares_Dir.objects.filter(tipo='e')
+    return render(request, 'tablas/lugar_dir.html', {'lugares': obj})
