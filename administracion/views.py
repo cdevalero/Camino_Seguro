@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from alquiler.models import *
 from alquiler.forms import *
 from django.contrib import messages
+from datetime import timedelta
 
 #index
 def index_admin(request):
@@ -43,6 +44,9 @@ def add_lugar_dir(request):
         if form.is_valid():
             if form.cleaned_data.get('tipo') == 'e' and form.cleaned_data.get('id_lugar'):
                 messages.error(request, 'Un estado no se puede unir a otro estado')
+                return render(request, 'tablas/add/add_lugar_dir.html',{'form':form})
+            elif form.cleaned_data.get('tipo') == 'c' and not form.cleaned_data.get('id_lugar'):
+                messages.error(request, 'Una ciudad debe estar vinculada a un estado')
                 return render(request, 'tablas/add/add_lugar_dir.html',{'form':form})
             form.save()
             return redirect('lugar_dir_admin')
@@ -134,6 +138,34 @@ def add_contratos(request):
             if form.cleaned_data.get('id_per') and form.cleaned_data.get('id_compa'):
                 messages.error(request, 'No se puede conectar un contrato con una Persona y una Compañia a la vez')
                 return render(request, 'tablas/add/add_contratos.html',{'form':form})
+            if form.cleaned_data.get('id_per'):
+                persona = form.cleaned_data.get('id_per')
+                if persona.riesgo:
+                    dni = persona.dni
+                    messages.error(request, f'El cliente DNI:{dni} es una persona con estado de riesgo')
+                    return redirect('contratos_admin')
+            if form.cleaned_data.get('id_camion'):
+                camion = form.cleaned_data.get('id_camion')
+                camion = Contrartos.objects.filter(id_camion=camion.id)
+                fecha = form.cleaned_data.get('fecha_alquiler')
+                if camion:
+                    for cam in camion:
+                        fecha_cam = cam.fecha_alquiler
+                        fecha_cam = fecha_cam + timedelta(days=cam.dura)
+                        if fecha_cam > fecha and fecha > cam.fecha_alquiler:
+                            messages.error(request, 'El Camion esta en uso para esa fecha de alquiler')
+                            return redirect('contratos_admin')
+            if form.cleaned_data.get('id_remolque'):
+                remolque = form.cleaned_data.get('id_remolque')
+                remolque = Contrartos.objects.filter(id_remolque=remolque.id)
+                fecha = form.cleaned_data.get('fecha_alquiler')
+                if remolque:
+                    for remo in remolque:
+                        fecha_remo = remo.fecha_alquiler
+                        fecha_remo = fecha_remo + timedelta(days=remo.dura)
+                        if fecha_remo > fecha and fecha > remo.fecha_alquiler:
+                            messages.error(request, 'El Remolque esta en uso para esa fecha de alquiler')
+                            return redirect('contratos_admin')
             form.save()
             return redirect('contratos_admin')
         else:
@@ -220,6 +252,9 @@ def edit_lugar_dir(request, id):
         if form.is_valid():
             if form.cleaned_data.get('tipo') == 'e' and form.cleaned_data.get('id_lugar'):
                 messages.error(request, 'Un estado no se puede unir a otro estado')
+                return render(request, 'tablas/add/add_lugar_dir.html',{'form':form})
+            elif form.cleaned_data.get('tipo') == 'c' and not form.cleaned_data.get('id_lugar'):
+                messages.error(request, 'Una ciudad debe estar vinculada a un estado')
                 return render(request, 'tablas/add/add_lugar_dir.html',{'form':form})
             form.save()
             return redirect('lugar_dir_admin')
@@ -348,6 +383,34 @@ def edit_contratos(request, id):
             if form.cleaned_data.get('id_per') and form.cleaned_data.get('id_compa'):
                 messages.error(request, 'No se puede conectar un contrato con una Persona y una Compañia a la vez')
                 return render(request, 'tablas/add/add_contratos.html',{'form':form})
+            if form.cleaned_data.get('id_per'):
+                persona = form.cleaned_data.get('id_per')
+                if persona.riesgo:
+                    dni = persona.dni
+                    messages.error(request, f'El cliente DNI:{dni} es una persona con estado de riesgo')
+                    return redirect('contratos_admin')
+            if form.cleaned_data.get('id_camion'):
+                camion = form.cleaned_data.get('id_camion')
+                camion = Contrartos.objects.filter(id_camion=camion.id)
+                fecha = form.cleaned_data.get('fecha_alquiler')
+                if camion:
+                    for cam in camion:
+                        fecha_cam = cam.fecha_alquiler
+                        fecha_cam = fecha_cam + timedelta(days=cam.dura)
+                        if fecha_cam > fecha and fecha > cam.fecha_alquiler:
+                            messages.error(request, 'El Camion esta en uso para esa fecha de alquiler')
+                            return redirect('contratos_admin')
+            if form.cleaned_data.get('id_remolque'):
+                remolque = form.cleaned_data.get('id_remolque')
+                remolque = Contrartos.objects.filter(id_remolque=remolque.id)
+                fecha = form.cleaned_data.get('fecha_alquiler')
+                if remolque:
+                    for remo in remolque:
+                        fecha_remo = remo.fecha_alquiler
+                        fecha_remo = fecha_remo + timedelta(days=remo.dura)
+                        if fecha_remo > fecha and fecha > remo.fecha_alquiler:
+                            messages.error(request, 'El Remolque esta en uso para esa fecha de alquiler')
+                            return redirect('contratos_admin')
             form.save()
             return redirect('contratos_admin')
         else:

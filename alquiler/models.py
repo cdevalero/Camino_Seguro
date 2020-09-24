@@ -19,6 +19,7 @@ class Lugares_Dir(models.Model):
         ordering = ['id']
 
 class Companias(models.Model):
+    codigo = models.IntegerField(null=False, verbose_name='Codigo', unique=True, default=0)
     nombre = models.CharField(null=False, verbose_name='Nombre', max_length=255, unique=True)
     calleav = models.CharField(null=False, verbose_name='Calle/Avenida', max_length=255)
     id_ciudad = models.ForeignKey(Lugares_Dir, on_delete=models.CASCADE, null=False)
@@ -37,12 +38,13 @@ class Particulares(models.Model):
         (4,'Tipo 4'),
         (5,'Tipo 5'),
     )
+    dni = models.IntegerField(null=False, verbose_name='DNI', unique=True, default=0)
     nombre = models.CharField(null=False, verbose_name='Nombre', max_length=255)
     apellido1 = models.CharField(null=False, verbose_name='Apellido 1', max_length=255)
     apellido2 = models.CharField(null=False, verbose_name='Apellido 2', max_length=255)
     calleav = models.CharField(null=False, verbose_name='Calle/Avenida', max_length=255)
     tip_lic = models.IntegerField(max_length=1, choices=LICENCIA, null=False, verbose_name='Tipo de licencia')
-    fecha_exp = models.DateField(verbose_name='Fecha exp', null=False)
+    fecha_exp = models.DateField(verbose_name='Fecha expiracion', null=False)
     riesgo = models.BooleanField(verbose_name='Riesgo', null=True, blank = True)
     id_ciudad = models.ForeignKey(Lugares_Dir, on_delete=models.CASCADE, null=False)
 
@@ -70,11 +72,16 @@ class Oficinas(models.Model):
         ordering = ['id']
 
 class Camiones(models.Model):
+    MTS = (
+        (18, '18 mts'),
+        (12, '12 mts'),
+        (5, '5 mts'),
+    )
     num_registro = models.IntegerField(verbose_name='Numero de registro', unique=True, null=False)
-    fecha_exp = models.DateField(verbose_name='Expiracion', null=False)
+    fecha_exp = models.DateField(verbose_name='Vencimiento de registro', null=False)
     fecha_man = models.DateField(verbose_name='Mantenimiento', null=False)
-    tammts = models.IntegerField(verbose_name='Tamaño (mts)', null=False)
-    km = models.IntegerField(verbose_name='Km', null=False)
+    tammts = models.IntegerField(verbose_name='Tamaño (mts)', null=False, choices=MTS)
+    km = models.IntegerField(verbose_name='Km actual', null=False)
     capacidad = models.IntegerField(verbose_name='Capacidad', null=False)
     radio = models.BooleanField(verbose_name='Radio', null=True, blank = True)
     id_oficina = models.ForeignKey(Oficinas, on_delete=models.CASCADE, null=False)
@@ -89,10 +96,14 @@ class Camiones(models.Model):
         ordering = ['id']
 
 class Remolques(models.Model):
+    MTS = (
+        (4, '4 mts'),
+        (2, '2 mts'),
+    )
     num_registro = models.IntegerField(verbose_name='Numero de registro', unique=True, null=False)
-    fecha_exp = models.DateField(verbose_name='Expiracion', null=False)
+    fecha_exp = models.DateField(verbose_name='Vencimiento de registro', null=False)
     fecha_man = models.DateField(verbose_name='Mantenimiento', null=False)
-    tammts = models.IntegerField(verbose_name='Tamaño (mts)', null=False)
+    tammts = models.IntegerField(verbose_name='Tamaño (mts)', null=False, choices=MTS)
     material = models.CharField(verbose_name='Material', null=False, max_length=255)
     abierto = models.BooleanField(verbose_name='Abierto', null=True, blank = True)
     id_oficina = models.ForeignKey(Oficinas, on_delete=models.CASCADE, null=False)

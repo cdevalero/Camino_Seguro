@@ -22,7 +22,7 @@ class FormOficinas(forms.ModelForm):
 class FormCompanias(forms.ModelForm):
     class Meta:
         model = Companias;
-        fields = ('nombre', 'calleav', 'id_ciudad')
+        fields = ('codigo','nombre', 'calleav', 'id_ciudad')
 
     def __init__(self, ciudad, *args, **kwargs):
         super(FormCompanias, self).__init__(*args, **kwargs)
@@ -31,7 +31,7 @@ class FormCompanias(forms.ModelForm):
 class FormParticulares(forms.ModelForm):
     class Meta:
         model = Particulares;
-        fields = ('nombre', 'apellido1', 'apellido2','calleav','tip_lic','fecha_exp','riesgo','id_ciudad')
+        fields = ('dni','nombre', 'apellido1', 'apellido2','calleav','tip_lic','fecha_exp','riesgo','id_ciudad')
         widgets = {
             'fecha_exp': DateInput(attrs={'type': 'date'})
         }
