@@ -79,8 +79,6 @@ class FormParticulares_cliente(forms.ModelForm):
         self.fields['id_ciudad'].queryset = Lugares_Dir.objects.filter(tipo=ciudad)
 
 class FormParticulares_inicio(forms.Form):
-    dni = forms.IntegerField()
+    dni = forms.IntegerField(label="DNI o Codigo")
 
-class FormPedido(forms.Form):
-    pass
 

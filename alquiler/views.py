@@ -28,7 +28,7 @@ def registro_user_compania(request):
             messages.error(request, 'Error')
             return render(request, 'register.html', {'form':form})
     form = FormCompanias('c')
-    return render(request, 'register.html', {'form':form})
+    return render(request, 'register.html', {'form':form})                
 
 def inicio_user(request):
     if request.method == 'POST':
@@ -39,16 +39,16 @@ def inicio_user(request):
                 obj = Particulares.objects.get(dni=dni)
             except Particulares.DoesNotExist:
                 try:
-                    comp = Companias.objects.get(codigo=dni)
+                    obj = Companias.objects.get(codigo=dni)
                 except Companias.DoesNotExist:
-                    messages.error(request, 'No existe el usuario, por favor registrarse (comp)')
-                    return redirect('inicio_user')
-                finally:
-                    return redirect('particulares_admin')
-                messages.error(request, 'No existe el usuario, por favor registrarse')
-                return redirect('inicio_user')
+                    messages.error(request, 'No existe el usuario, por favor registrarse')
+                    return redirect('inicio_user')            
             return redirect('particulares_admin')
         messages.error(request, 'No existe el usuario, por favor registrarse (invalido)')
         return redirect('inicio_user')
     form = FormParticulares_inicio()
     return render(request, 'inicio.html', {'form':form})
+
+def pedido(request, cliente):
+    
+    pass
