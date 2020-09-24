@@ -11,10 +11,10 @@
 {% csrf_token %}
     {{form|crispy}}
     <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
-        Registrarse
+        Iniciar Session
     </button>
     <br>
     <div class="d-flex justify-content-center">
-        <a href="{% url 'inicio_user' %}">Ya tienes cuenta</a>
+        <a href="{% url 'registro_user_opcion' %}">No tienes cuenta?</a>
     </div>
 {% endblock user_base %}

@@ -40,18 +40,6 @@ class FormParticulares(forms.ModelForm):
         super(FormParticulares, self).__init__(*args, **kwargs)
         self.fields['id_ciudad'].queryset = Lugares_Dir.objects.filter(tipo=ciudad)
 
-class FormParticulares_cliente(forms.ModelForm):
-    class Meta:
-        model = Particulares;
-        fields = ('dni','nombre', 'apellido1', 'apellido2','calleav','tip_lic','fecha_exp','id_ciudad')
-        widgets = {
-            'fecha_exp': DateInput(attrs={'type': 'date'})
-        }
-
-    def __init__(self, ciudad, *args, **kwargs):
-        super(FormParticulares_cliente, self).__init__(*args, **kwargs)
-        self.fields['id_ciudad'].queryset = Lugares_Dir.objects.filter(tipo=ciudad)
-
 class FormCamiones(forms.ModelForm):
     class Meta:
         model = Camiones;
@@ -77,3 +65,22 @@ class FormContratos(forms.ModelForm):
         widgets = {
             'fecha_alquiler': DateInput(attrs={'type': 'date'})
         }
+
+class FormParticulares_cliente(forms.ModelForm):
+    class Meta:
+        model = Particulares;
+        fields = ('dni','nombre', 'apellido1', 'apellido2','calleav','tip_lic','fecha_exp','id_ciudad')
+        widgets = {
+            'fecha_exp': DateInput(attrs={'type': 'date'})
+        }
+
+    def __init__(self, ciudad, *args, **kwargs):
+        super(FormParticulares_cliente, self).__init__(*args, **kwargs)
+        self.fields['id_ciudad'].queryset = Lugares_Dir.objects.filter(tipo=ciudad)
+
+class FormParticulares_inicio(forms.Form):
+    dni = forms.IntegerField()
+
+class FormPedido(forms.Form):
+    pass
+

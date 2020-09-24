@@ -19,7 +19,7 @@ class Lugares_Dir(models.Model):
         ordering = ['id']
 
 class Companias(models.Model):
-    codigo = models.IntegerField(null=False, verbose_name='Codigo', unique=True, default=0)
+    codigo = models.IntegerField(null=False, verbose_name='Codigo', unique=True)
     nombre = models.CharField(null=False, verbose_name='Nombre', max_length=255, unique=True)
     calleav = models.CharField(null=False, verbose_name='Calle/Avenida', max_length=255)
     id_ciudad = models.ForeignKey(Lugares_Dir, on_delete=models.CASCADE, null=False)
@@ -38,7 +38,7 @@ class Particulares(models.Model):
         (4,'Tipo 4'),
         (5,'Tipo 5'),
     )
-    dni = models.IntegerField(null=False, verbose_name='DNI', unique=True, default=0)
+    dni = models.IntegerField(null=False, verbose_name='DNI', unique=True)
     nombre = models.CharField(null=False, verbose_name='Nombre', max_length=255)
     apellido1 = models.CharField(null=False, verbose_name='Apellido 1', max_length=255)
     apellido2 = models.CharField(null=False, verbose_name='Apellido 2', max_length=255)

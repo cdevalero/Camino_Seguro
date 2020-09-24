@@ -1,0 +1,22 @@
+{% extends 'user_base.html' %}
+
+
+{% block title %}
+    Registro
+{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block user_base %}
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-lg btn-primary btn-block text-uppercase" href="{% url 'registro_user_persona' %}">Persona</a>
+    </div>
+    <br>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-lg btn-primary btn-block text-uppercase" href="{% url 'registro_user_compania' %}">Compañia</a>
+    </div>
+    <br>
+    <div class="d-flex justify-content-center">
+        <a href="{% url 'inicio_user' %}">Ya tienes cuenta</a>
+    </div>
+{% endblock user_base %}
