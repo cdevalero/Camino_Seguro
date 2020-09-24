@@ -1,0 +1,13 @@
+{% extends 'user_base.html' %}
+
+
+{% block title %}
+    Registro
+{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block user_base %}
+{% csrf_token %}
+    {{form|crispy}}
+{% endblock user_base %}
